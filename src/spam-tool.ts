@@ -94,6 +94,13 @@ export class SpamTool extends LitElement {
     justify-content: center;
     text-align: left;
     font-family: "Google Sans Flex";
+    max-width: 45vw;
+    padding: 1rem;
+    min-height: 200px;
+    max-height: 60vh;
+    overflow-y: scroll;
+    word-break: break-all;
+    overflow-wrap: break-word;
   }
 `;
 
