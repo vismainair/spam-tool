@@ -120,7 +120,7 @@ export class SpamTool extends LitElement {
     }
   `;
 
-  private handleClick() {
+  private handleInput() {
     const text: string = this.textbox.value;
 
     const count: number = Number(this.countbox.value);
@@ -147,21 +147,19 @@ export class SpamTool extends LitElement {
       <div class="grid">
         <div>
           <md-outlined-text-field
+          @input="${this.handleInput}"
             id="text"
             label="Spam Text"
             placeholder="Enter Text to be Spammed"
-          >
-          </md-outlined-text-field>
+          ></md-outlined-text-field>
           <md-outlined-text-field
+          @input="${this.handleInput}"
             id="count"
             label="Count"
             type="number"
             placeholder="Enter number of times"
           >
           </md-outlined-text-field>
-          <md-filled-button @click="${this.handleClick}"
-            >Generate</md-filled-button
-          >
         </div>
         <div id="output">
           <div id="output-nav">
