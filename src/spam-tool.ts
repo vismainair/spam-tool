@@ -1,9 +1,9 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 
-import '@material/web/textfield/outlined-text-field.js';
 import '@material/web/button/filled-button.js';
-import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field.js';
+import '@material/web/textfield/outlined-text-field.js';
+import type { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field.js';
 import '@material/web/iconbutton/icon-button.js';
 import '@material/web/icon/icon.js';
 
@@ -31,9 +31,13 @@ export class SpamTool extends LitElement {
     .grid {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      align-items: stretch;
+      justify-content: stretch;
       flex: 1;
+      margin: 0 auto;
+      box-sizing: border-box;
+      width: 100%;
+      align-self: stretch;
     }
 
     footer {
@@ -67,13 +71,11 @@ export class SpamTool extends LitElement {
 
     md-filled-button {
       height: 10vh;
-      width: 33vw;
       --md-filled-button-container-shape: 8px;
       --md-filled-button-label-text-font: 'Google Sans Flex', sans-serif;
     }
 
     md-outlined-text-field {
-      width: 33vw;
       --md-outlined-text-field-input-text-font: 'Google Sans Flex', sans-serif;
       --md-outlined-text-field-label-text-font: 'Google Sans Flex', sans-serif;
       --md-outlined-text-field-container-shape: 8px;
@@ -84,17 +86,15 @@ export class SpamTool extends LitElement {
       font-weight: 400;
     }
 
-    #output {
+    #output-container {
       border-radius: 5px;
       border: 2px solid #0b214a;
       display: flex;
       flex-flow: column;
       text-align: left;
       font-family: 'Google Sans Flex';
-      max-width: 45vw;
       padding: 1rem;
-      min-height: 200px;
-      max-height: 60vh;
+      min-height: 40vh;
       overflow-y: scroll;
       word-break: break-all;
       overflow-wrap: break-word;
@@ -102,21 +102,35 @@ export class SpamTool extends LitElement {
       margin: 1rem;
     }
 
-    #output > div:not(#output-nav) {
+    #output-container > div:not(#output-nav) {
       margin: 0;
     }
 
-    #output > #output-nav {
+    #output-container > #output-nav {
       padding: 0.2rem;
       margin: 0rem;
       border-bottom: 2px solid #0b214a;
+    }
+
+    #button-bar {
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
     }
 
     @media (min-width: 768px) {
       .grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
+        grid-template-rows: minmax(200px, 40vh);
+        align-content: center;
       }
+
+      #output-container {
+        max-width: 50vw;
+        min-width: 20vw;
+      }
+
     }
   `;
 
@@ -145,7 +159,7 @@ export class SpamTool extends LitElement {
         <h1>Auto Spam Tool</h1>
       </header>
       <div class="grid">
-        <div>
+        <div id="button-bar">
           <md-outlined-text-field
           @input="${this.handleInput}"
             id="text"
@@ -161,7 +175,7 @@ export class SpamTool extends LitElement {
           >
           </md-outlined-text-field>
         </div>
-        <div id="output">
+        <div id="output-container">
           <div id="output-nav">
             <md-icon-button aria-label="Copy" @click="${this.handleCopy}">
               <md-icon>content_copy</md-icon>
